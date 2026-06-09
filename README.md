@@ -159,23 +159,16 @@ source .venv/bin/activate
 
 ## Model Weights Setup
 
-Download the required **SAM3 Hugging Face model weights** and place them in a folder named:
-
-```text
-weights/
-```
-
-located in the project root directory.
+Download the required **SAM3 Hugging Face model weights** and place them in the project toot directory
 
 Example:
 
 ```text
 GM-PHD-Multi-Target-Tracking/
-│── weights/
-│   ├── sam3_weights_here
+├── sam3.pt_here
 ```
 
-**Note:** Model weights are not included in this repository.
+**Note:** Model weights are not included in this repository as they were acquired from huggingg-face.
 
 ---
 
@@ -194,7 +187,7 @@ You can also configure:
 Dataset download link:
 
 **[INSERT DATASET LINK HERE]**
-
+https://www.nature.com/articles/s41597-025-06204-0
 ---
 
 ## Running the Tracker
@@ -213,7 +206,7 @@ After activating the environment:
 Example:
 
 ```bash
-python main.py
+python image_detection.py run --data ~/data/M3OT/2/ir/test/2-03T --n-frames 300 --visualise
 ```
 
 *(Replace with the correct entrypoint if different.)*
@@ -249,17 +242,19 @@ Potential future extensions include:
 * **Multi-sensor fusion**
 * **Improved target birth/death modeling**
 * **Extended UAV autonomy workflows**
+* **Interactive Multiple Model Incorporation**
 
 ---
 
 ## References
-
 This implementation was developed using concepts from:
 
-* **Finite Set Statistics (FISST)**
-* **Gaussian Mixture Probability Hypothesis Density (GM-PHD) filtering**
+* **Statistical Multisource-Multitarget Information Fusion by Ronald Mahler**
+* **Tracking and Data Fusion by Yaakov Bar-Shalom**
+* **Vo and Ma's 2006 Paper on the GM-PHD** 
 * **Meta SAM3 segmentation models**
-* Research literature and open-source tracking references
+* **The M3OT Dataset**
+* Research literature and open-source tracking references like stone-soup
 
 Please cite relevant papers if extending this work for academic purposes.
 
