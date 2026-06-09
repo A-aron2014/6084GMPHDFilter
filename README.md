@@ -1,3 +1,5 @@
+![Python](https://img.shields.io/badge/python-3.10+-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 # GM-PHD Multi-Target Tracking
 
 A **multi-target optical tracking framework** utilizing a **Finite Set Statistics (FISST) Gaussian Mixture Probability Hypothesis Density (GM-PHD) filter** with **Meta SAM3** object segmentation for UAV-based target tracking in **RGB and infrared (IR)** imagery.
@@ -114,7 +116,7 @@ GPU acceleration is required for efficient SAM3 inference.
 Recommended environment:
 
 * **WSL2**
-* **Ubuntu 22.04**
+* **Ubuntu 24.04**
 
 Windows users should install and configure WSL2 before setup.
 
@@ -122,22 +124,24 @@ Windows users should install and configure WSL2 before setup.
 
 ## Installation
 
-### 1. Install WSL2 + Ubuntu 22.04
+### 1. Install WSL2 + Ubuntu 24.04
 
 Install:
 
 * WSL2
-* Ubuntu 22.04
+* Ubuntu 24.04
 
-Then install Python and `uv`.
+### 2. Then install Python
 
-### 2. Install `uv`
+sudo apt-get install python3 python3-pip
+
+### 3. Install `uv`
 
 ```bash
 pip install uv
 ```
 
-### 3. Create the Environment
+### 4. Create the Environment
 
 From the project root:
 
@@ -147,7 +151,7 @@ uv sync
 
 This will install the required dependencies and generate the virtual environment.
 
-### 4. Activate the Environment
+### 5. Activate the Environment
 
 Linux / WSL:
 
@@ -159,7 +163,7 @@ source .venv/bin/activate
 
 ## Model Weights Setup
 
-Download the required **SAM3 Hugging Face model weights** and place them in the project toot directory
+Download the required **SAM3 Hugging Face model weights** and place them in the project root directory
 
 Example:
 
@@ -168,7 +172,7 @@ GM-PHD-Multi-Target-Tracking/
 ├── sam3.pt_here
 ```
 
-**Note:** Model weights are not included in this repository as they were acquired from huggingg-face.
+**Note:** Model weights are not included in this repository as they were acquired from Huggingg Face.
 
 ---
 
@@ -187,17 +191,16 @@ You can also configure:
 Dataset download link:
 
 **[INSERT DATASET LINK HERE]**
-https://www.nature.com/articles/s41597-025-06204-0
+**[M3OT Dataset](https://www.nature.com/articles/s41597-025-06204-0)**
 ---
 
 ## Running the Tracker
 
 After activating the environment:
 
-1. Open the project in **VS Code**
+1. Open the project in **VS Code** or run from your terminal if desired
 2. Select the correct Python interpreter from `.venv`
 3. Update:
-
    * dataset path
    * image count
    * runtime parameters (if desired)
