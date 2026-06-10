@@ -42,7 +42,15 @@ The resulting outputs visualize:
 
   * CUDA-enabled inference pipeline
   * Designed for NVIDIA hardware
+  By default the tracker auto-detects CUDA and runs on GPU if available.
+  To force CPU inference (slower, no GPU required):
 
+  ```bash
+  python image_detection.py run --data ~/data/... --cpu
+  ```
+
+  > **Note:** CPU inference is significantly slower for SAM3. 
+  > Recommended only for testing or machines without an NVIDIA GPU.
 ---
 
 ## Example Pipeline

@@ -123,7 +123,7 @@ class DataConfig:
     n_frames: Optional[int] = 300
     text_prompt: list = field(default_factory=lambda: ["vehicles"])
     model_weights: str = "sam3.pt"
- 
+    force_cpu: bool = False
     @property
     def image_paths(self) -> list:
         paths = sorted(
@@ -645,6 +645,8 @@ def _shared_args() -> argparse.ArgumentParser:
                    help="Max frames to process (0 = all)")
     p.add_argument("--weights", default="sam3.pt",
                    help="Path to SAM3 model weights")
+    p.add_argument("--cpu", action="store_true", dest="force_cpu",
+               help="Force CPU inference even if CUDA is available")
     return p
  
  
