@@ -110,6 +110,7 @@ This project requires:
 * **CUDA-capable hardware**
 
 GPU acceleration is required for efficient SAM3 inference.
+If running on non- NVIDIA hardware, it will run slower so consider testing with less images.
 
 ### Operating System
 
@@ -132,13 +133,18 @@ Install:
 * Ubuntu 24.04
 
 ### 2. Then install Python
-
-sudo apt-get install python3 python3-pip
-
-### 3. Install `uv`
-
 ```bash
-pip install uv
+sudo apt-get install python3 python3-pip
+```
+### 3. Install `uv`
+Download and run the installer, then if using bash reload the shell config to add to PATH
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source ~/.bashrc
+```
+Verify the installation:
+```bash
+uv --version
 ```
 
 ### 4. Create the Environment
@@ -246,7 +252,8 @@ Ellipsoid          → covariance uncertainty
 ## Lessons Learned / Future Improvements
 
 Potential future extensions include:
-
+* **Docker Container Migration**
+* **Upgrade KF to EKF or UKF**
 * **ROS2 integration**
 * **Real-time streaming support**
 * **C++ GM-PHD implementation for performance**
