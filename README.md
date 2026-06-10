@@ -4,7 +4,7 @@
 
 A **multi-target optical tracking framework** utilizing a **Finite Set Statistics (FISST) Gaussian Mixture Probability Hypothesis Density (GM-PHD) filter** with **Meta SAM3** object segmentation for UAV-based target tracking in **RGB and infrared (IR)** imagery.
 
-This project demonstrates a probabilistic multi-target tracking pipeline that combines modern vision-based object detection with principled Bayesian estimation. The system uses **SAM3 detections to generate measurement sets**, which are then processed through a **GM-PHD filter** to estimate target centroids, manage clutter, and maintain target hypotheses under uncertainty.
+This project demonstrates a probabilistic multi-target tracking pipeline that combines modern vision-based object detection with principled Bayesian estimation. The system uses **SAM3 detections to generate measurement sets**, which are then processed through a **GM-PHD filter** to estimate target centroids, manage clutter, and maintain target hypotheses under uncertainty. It is an L1 Data Fusion Algorithm. 
 
 The resulting outputs visualize:
 
@@ -14,6 +14,11 @@ The resulting outputs visualize:
 * **Track birth and maintenance behavior** under uncertain detections
 
 ---
+## Key Assumptions
+ * Object spawning is random and treated as poisson distribution.
+ * Object motion is linear.
+ * Clutter is present in every image.
+ * Motion of the UAV is negligible.
 
 ## Features
 
