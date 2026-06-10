@@ -255,6 +255,7 @@ True Centroid      → observed target
 Predicted Centroid → GM-PHD estimate
 Ellipsoid          → covariance uncertainty
 ```
+<img width="1800" height="1200" alt="image" src="https://github.com/user-attachments/assets/e36c3881-7796-467e-ad78-d3a7f3e76db4" />
 
 ---
 
