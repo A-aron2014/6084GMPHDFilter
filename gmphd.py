@@ -2,26 +2,20 @@ import numpy as np
 from copy import deepcopy
 from operator import attrgetter
 from dataclasses import dataclass,field
-#why?
-simplesum = sum
 
+simplesum = sum
 myfloat = np.float64
-#making this a data class because of the built in decorators
+
 @dataclass
 class GmphdComponent:
     weight  : myfloat
     mean     : np.array
     cov     : np.array
-
-    #These values are computed in __post_init__
     k       : int        = field(default=0, init=False) #This is the coefficient that will define the shape of the gaussian mixture
     dmv_part1   : float  = field(default=0.0,init=False)
     dmv_part2   : float  = field(default=0.0,init=False)
+
     def __post_init__(self):
-        #Taking this out bc I think it's fucking me
-        #self.mean    = np.array(self.mean, dtype=myfloat, ndmin=2)
-        #self.cov    = np.array(self.cov, dtype=myfloat, ndmin=2)
-        #self.mean    = self.mean.reshape(-1, 1)
         self.mean = np.asarray(self.mean, dtype=myfloat).reshape(-1)
         self.cov  = np.asarray(self.cov, dtype=myfloat)
         n           = self.mean.shape[0]
@@ -65,7 +59,7 @@ def sampleGaussianMixture(component_list):
         if choice <= cumulative:
             #sample from the chosen component and return a value
             comp = component_list[i]
-            return np.random.multivariate_normal(comp.mean,comp.cov) #Do I really need to flatten this?
+            return np.random.multivariate_normal(comp.mean,comp.cov)
     raise RuntimeError("SampleGaussianMixture terminated without selecting a component")
 
 class Gmphd:
@@ -99,7 +93,7 @@ class Gmphd:
         #Step 2 - Prediction of existing targets
         F = self.F
         updated = []
-        #This is encodes our dynamics from k-1 to k 
+        #This encodes dynamics from k-1 to k 
         for c in self.gmm:
             m = self.F@c.mean
             P = self.F@c.cov @self.F.T+ self.Q
@@ -160,13 +154,10 @@ class Gmphd:
 
     def prune_targets(self, prune_threshold=1e-6, merge_threshold=4.0, max_components=100):
         #Prune the Gaussian Mixtures -> Look at table 2 of Vo and Ma
-
         w0 = simplesum(c.weight for c in self.gmm) #diagnostic
-
         sourcegmm       = [c for c in self.gmm if c.weight > prune_threshold]
         original_length = len(self.gmm)
         pruned_length   = len(sourcegmm)
-        
         newgmm = []
         while len(sourcegmm) > 0:
             windex   = int(np.argmax([c.weight for c in sourcegmm]))
@@ -229,12 +220,6 @@ class Gmphd:
             n = int(round(c.weight* bias))
             for _ in range(n):
                 items.append(deepcopy(c.mean))
-
-        # for c in self.gmm:
-        #     val = c.weight * float(bias)
-
-        #     if val> 0.05:
-        #         items.append(deepcopy(c.mean))
 
         for x in items:
             print(x.T)

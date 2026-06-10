@@ -116,7 +116,6 @@ class MonteCarloConfig:
     detect_prob_range: tuple   = (0.75, 0.99)
     clutter_total_range: tuple = (1, 15)
  
- 
 @dataclass
 class DataConfig:
     """Dataset paths and SAM3 predictor settings."""
@@ -167,7 +166,6 @@ def extract_measurements(results, min_conf: float, mask_threshold: float) -> lis
             })
     return measurements
  
- 
 def build_birth_gmm(measurements: list, birth_weight: float, P_birth: np.ndarray) -> list:
     """Spawn a birth component at each measurement location."""
     return [
@@ -201,10 +199,8 @@ def load_mot_ground_truth(filepath: str) -> dict:
             )
     return gt_by_frame
  
- 
 def get_gt_states(gt_by_frame: dict, frame_idx: int) -> list:
     return [obj["state"] for obj in gt_by_frame.get(frame_idx, [])]
- 
  
 # Metric Generation
 def ospa_distance(X: list, Y: list, c: float = 100.0, p: int = 2) -> float:
@@ -225,19 +221,15 @@ def ospa_distance(X: list, Y: list, c: float = 100.0, p: int = 2) -> float:
     card_penalty        = abs(m - n) * (c ** p)
     return ((assignment_cost + card_penalty) / max(m, n)) ** (1 / p)
  
- 
 def cardinality_error(X: list, Y: list) -> int:
     return abs(len(X) - len(Y))
- 
  
 def cardinality_bias(X: list, Y: list) -> int:
     """Positive = over-counting, negative = under-counting."""
     return len(Y) - len(X)
  
- 
 def nis_bounds(dof: int, alpha: float = 0.05) -> tuple:
     return chi2.ppf(alpha / 2, dof), chi2.ppf(1 - alpha / 2, dof)
- 
  
 def compute_nis(measurement, components: list, H: np.ndarray, R: np.ndarray) -> Optional[float]:
     """Weighted Normalised Innovation Squared across all GMM components."""
@@ -252,8 +244,6 @@ def compute_nis(measurement, components: list, H: np.ndarray, R: np.ndarray) -> 
         innov  = z - z_pred
         weighted_nis += (c.weight / total_weight) * (innov.T @ np.linalg.inv(S) @ innov).item()
     return weighted_nis
- 
- 
 
 # Visualisation
 def visualise_single_frame(
@@ -332,7 +322,6 @@ def visualise_single_frame(
     plt.close(fig)
     log.info("Saved %s", out_path)
  
- 
 def plot_nis(frame_ids: np.ndarray, nis_vals: np.ndarray, dof: int = 2) -> None:
     lower, upper = nis_bounds(dof)
     plt.figure()
@@ -348,7 +337,6 @@ def plot_nis(frame_ids: np.ndarray, nis_vals: np.ndarray, dof: int = 2) -> None:
     plt.savefig("nis_plot.png", dpi=150)
     plt.show()
  
- 
 def plot_metrics(frame_ids: np.ndarray, ospa_vals: np.ndarray, card_vals: np.ndarray) -> None:
     fig, axes = plt.subplots(2, 1, figsize=(10, 6), sharex=True)
     axes[0].plot(frame_ids, ospa_vals)
@@ -363,7 +351,6 @@ def plot_metrics(frame_ids: np.ndarray, ospa_vals: np.ndarray, card_vals: np.nda
     plt.tight_layout()
     plt.savefig("metrics_plot.png", dpi=150)
     plt.show()
- 
  
 def plot_mc_results(
     frame_ids: np.ndarray,
@@ -421,13 +408,10 @@ def build_filter(filter_cfg: FilterConfig, motion_cfg: MotionModelConfig) -> Gmp
         filter_cfg.clutter_intensity,
     )
  
- 
 def build_predictor(data_cfg: DataConfig) -> SAM3SemanticPredictor:
     overrides = dict(conf=0.25, task="segment", mode="track",
                      model=data_cfg.model_weights, half=True, save=True)
     return SAM3SemanticPredictor(overrides=overrides)
- 
- 
 
 # Core per-frame processing
 def process_frame(
@@ -637,10 +621,8 @@ def mode_montecarlo(args: argparse.Namespace) -> None:
                     ospa_mean, ospa_std, cbias_mean, cbias_std,
                     ospa_arr, cbias_arr)
     
-# =============================================================================
-# CLI
-# =============================================================================
- 
+
+# CLI entrypoint 
 def _shared_args() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(add_help=False)
     p.add_argument("--data", default="~/data/M3OT/2/ir/test/2-03T",

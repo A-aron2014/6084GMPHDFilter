@@ -209,7 +209,15 @@ After activating the environment:
 Example:
 
 ```bash
+# Quick single-pass inference (debug / visualisation)
 python image_detection.py run --data ~/data/M3OT/2/ir/test/2-03T --n-frames 300 --visualise
+ 
+# Full analytics: OSPA, NIS, cardinality plots
+python image_detection.py analyze --data ~/data/M3OT/2/ir/test/2-03T --n-frames 300
+ 
+# Monte Carlo parameter sensitivity sweep
+python image_detection.py montecarlo --data ~/data/M3OT/2/ir/test/2-03T --n-frames 300 --n-runs 20 --seed 42 Be careful with this one it is a resource sink. I would drop frame nums to ~100 or runs to ~10
+
 ```
 
 *(Replace with the correct entrypoint if different.)*
