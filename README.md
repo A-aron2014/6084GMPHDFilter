@@ -239,6 +239,7 @@ python image_detection.py montecarlo --data ~/data/M3OT/2/ir/test/2-03T --n-fram
 ---
 
 ## Example Outputs
+Outputs from the general run command will appear in the main file directory.
 
 The tracker generates visualizations showing:
 
