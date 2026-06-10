@@ -408,9 +408,23 @@ def build_filter(filter_cfg: FilterConfig, motion_cfg: MotionModelConfig) -> Gmp
         filter_cfg.clutter_intensity,
     )
  
+# def build_predictor(data_cfg: DataConfig) -> SAM3SemanticPredictor:
+#     overrides = dict(conf=0.25, task="segment", mode="track",
+#                      model=data_cfg.model_weights, half=True, save=True)
+#     return SAM3SemanticPredictor(overrides=overrides)
+
 def build_predictor(data_cfg: DataConfig) -> SAM3SemanticPredictor:
-    overrides = dict(conf=0.25, task="segment", mode="track",
-                     model=data_cfg.model_weights, half=True, save=True)
+    use_cuda = torch.cuda.is_available() and not data_cfg.force_cpu
+    overrides = dict(
+        conf=0.25,
+        task="segment",
+        mode="track",
+        model=data_cfg.model_weights,
+        half=use_cuda,
+        save=True,
+        device="cuda" if use_cuda else "cpu",
+    )
+    log.info("Predictor device: %s", "cuda" if use_cuda else "cpu")
     return SAM3SemanticPredictor(overrides=overrides)
 
 # Core per-frame processing
