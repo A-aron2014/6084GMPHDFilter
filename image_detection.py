@@ -662,7 +662,8 @@ def build_parser() -> argparse.ArgumentParser:
         p.add_argument("--data", default="~/data/M3OT/2/ir/test/2-03T")
         p.add_argument("--n-frames", type=int, default=300, metavar="N")
         p.add_argument("--weights", default="sam3.pt")
-
+        p.add_argument("--cpu", action="store_true", dest="force_cpu",
+                help="Force CPU inference even if CUDA is available")
     p_run = sub.add_parser("run", help="Single-pass inference (debug / quick check)")
     add_shared(p_run)
     p_run.add_argument("--visualise", action="store_true")
